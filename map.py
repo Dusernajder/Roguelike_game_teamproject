@@ -1,9 +1,10 @@
 import random
 import numpy as np
 
-shape = (20, 20)
 WALL = 0
 FLOOR = 1
+
+shape = (30, 30)
 fill_prob = 0.32
 generations = 6
 
@@ -29,6 +30,7 @@ def generate_map(new_map, shape):
     for generation in range(generations):
         for i in range(shape[0]):
             for j in range(shape[1]):
+
                 submap = new_map[max(i - 1, 0):min(i + 2, new_map.shape[0]), max(j - 1, 0):min(j + 2, new_map.shape[1])]
                 wallcount_1away = len(np.where(submap.flatten() == WALL)[0])
                 submap = new_map[max(i - 2, 0):min(i + 3, new_map.shape[0]), max(j - 2, 0):min(j + 3, new_map.shape[1])]
@@ -44,13 +46,6 @@ def generate_map(new_map, shape):
     return new_map
 
 
-# Getter - Setter
-
-def set_map_size(x, y):
-    shape = [x, y]
-
-
-if __name__ == '__main__':
+def get_random_map():
     new_map = np.ones((shape), dtype = int)
-    new_map = generate_random_map(new_map)
-    display_matrix(generate_map(new_map, shape))
+    return generate_map(generate_random_map(new_map), shape)

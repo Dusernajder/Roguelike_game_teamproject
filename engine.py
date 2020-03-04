@@ -1,15 +1,13 @@
-def create_board(width, height):
+import map as gmap
+
+def create_board():
     '''
     Creates a new game board based on input parameters.
-
-    Args:
-    int: The width of the board
-    int: The height of the board
 
     Returns:
     list: Game board
     '''
-    pass
+    return gmap.get_random_map()
 
 
 def put_player_on_board(board, player):
