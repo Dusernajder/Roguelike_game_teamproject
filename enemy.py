@@ -63,9 +63,8 @@ def monster_placement(validplace, monsters, board, monsters_alive):# place the c
 
 
 
-def monster_movement(board, monsters_alive, monster_dict,valid_place):# when you call it it moves all the 'living' monsters
+def monster_movement(board, monsters_alive,valid_place):# when you call it it moves all the 'living' monsters
         for monster in monsters_alive:
-            print(monster)
             possible_moves = []
             possible_moves.append((monster['X'] + 1,monster['Y'])), possible_moves.append((monster['X'] - 1,monster['Y']))
             possible_moves.append((monster['X'], monster['Y'] + 1)), possible_moves.append((monster['X'], monster['Y'] - 1))
@@ -91,11 +90,11 @@ def main():
     for i in board:
         print(i)
     print('----------------------------------------------')
-    monster_movement(board,monsters_alive,monsters_dict,floorsize)
+    monster_movement(board,monsters_alive,floorsize)
     for i in board:
         print(i)
     print('--------------------------------------------')
-    monster_movement(board, monsters_alive, monsters_dict, floorsize)
+    monster_movement(board, monsters_alive, floorsize)
     for i in board:
         print(i)
 
