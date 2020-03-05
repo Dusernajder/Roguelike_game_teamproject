@@ -50,7 +50,7 @@ def view(boss, charachter, warrior_distance, charachter_two=None, final=False):
             os.system('clear')
             for i in range(len(charachter)):
                 print(boss[i][0][x:len(boss[i][0])] + charachter[i][0][2:z] + charachter_two[i][0])
-            sleep(0.15)
+            sleep(0.05)
     else:
         for i in range(len(charachter)):
             print(boss[i][0] + ' '*warrior_distance + charachter[i][0])
@@ -63,13 +63,13 @@ def final_choreography():
     charachters = {}
     get_ch = charachters.get
 
-    charachters['boss'] = read_table_from_file('boss.txt', '\n')
-    charachters['movement_type_one'] = read_table_from_file('fight_one.txt', '\n')
-    charachters['movement_type_two'] = read_table_from_file('fight_two.txt', '\n')
-    charachters['movement_type_three'] = read_table_from_file('fight_three.txt', '\n')
-    charachters['movement_type_four'] = read_table_from_file('fight_four.txt', '\n')
-    charachters['boss_text'] = read_table_from_file('youshallnotpass.txt', '\n')
-    charachters['execute'] = read_table_from_file('execute.txt', '\n')
+    charachters['boss'] = read_table_from_file('final_boss/boss.txt', '\n')
+    charachters['movement_type_one'] = read_table_from_file('final_boss/fight_one.txt', '\n')
+    charachters['movement_type_two'] = read_table_from_file('final_boss/fight_two.txt', '\n')
+    charachters['movement_type_three'] = read_table_from_file('final_boss/fight_three.txt', '\n')
+    charachters['movement_type_four'] = read_table_from_file('final_boss/fight_four.txt', '\n')
+    charachters['boss_text'] = read_table_from_file('final_boss/youshallnotpass.txt', '\n')
+    charachters['execute'] = read_table_from_file('final_boss/execute.txt', '\n')
 
     warrior_distance = start_position(get_ch('boss'), get_ch('movement_type_one'), move, warrior_distance, get_ch('boss_text'))
     warrior_distance = move_R_L(get_ch('boss'), get_ch('movement_type_two'), fast_move, warrior_distance, 'L')
