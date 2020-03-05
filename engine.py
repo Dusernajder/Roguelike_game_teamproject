@@ -3,7 +3,6 @@ import util
 import numpy as np
 import time
 
-
 def create_board():
     '''
     Creates a new game board based on input parameters.
@@ -98,10 +97,10 @@ def put_player_on_board(board, player):
         time.sleep(0.05)
         print_board(board)
         key = util.key_pressed()
-        player_position = [np.where(board == '@')[0][0], np.where(board == '@')[1][0]]
+        player_position = [np.where(board == player)[0][0], np.where(board == player)[1][0]]
         height = player_position[0]
         width = player_position[1]
-        
+
         if key == 'd':
             move_right(board, previous_spot, height, width, player_position)
         elif key == 'a':
@@ -120,4 +119,5 @@ def put_player_on_board(board, player):
     return board
 
 
-put_player_on_board(create_board(), '@')
+
+# put_player_on_board(create_board(), '@')
