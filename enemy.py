@@ -41,7 +41,7 @@ def pick_monster(monsters, player, monster_number_count):#pick monsters from the
         player_level = int(player[0]['Level'])
         if monster_level == player_level or monster_level == player_level + 1 or monster_level == player_level - 1:
             monsters_list.append(monster)
-    for i in range(monster_number_count):
+    for count in range(monster_number_count):
         picked_monsters.append(random.choice(monsters_list))
     return picked_monsters
 
@@ -52,13 +52,13 @@ def monster_placement(validplace, monsters, board, monsters_alive):# place the c
     for monster in monster_left_to_place:
         monster['ID'] = util.generate_id()
 
-    for i in monster_left_to_place:
-        if i not in used:
+    for monster_dict in monster_left_to_place:
+        if monster_dict not in used:
             place = random.choice(validplace)
-            i['X'], i['Y'] = place[0], place[1]
-            board[place[0]][place[1]] = i['Icon']
-            monsters_alive.append(i)
-            used.append(i)
+            monster_dict['X'], monster_dict['Y'] = place[0], place[1]
+            board[place[0]][place[1]] = monster_dict['Icon']
+            monsters_alive.append(monster_dict)
+            used.append(monster_dict)
 
 
 
@@ -66,8 +66,9 @@ def monster_placement(validplace, monsters, board, monsters_alive):# place the c
 def monster_movement(board, monsters_alive,valid_place):# when you call it it moves all the 'living' monsters
         for monster in monsters_alive:
             possible_moves = []
-            possible_moves.append((monster['X'] + 1,monster['Y'])), possible_moves.append((monster['X'] - 1,monster['Y']))
-            possible_moves.append((monster['X'], monster['Y'] + 1)), possible_moves.append((monster['X'], monster['Y'] - 1))
+            append = possible_moves.append
+            append((monster['X'] + 1,monster['Y'])), append((monster['X'] - 1,monster['Y']))
+            append((monster['X'], monster['Y'] + 1)), append((monster['X'], monster['Y'] - 1))
             can_move = [x for x in possible_moves if x in valid_place]
             move = random.choice(can_move)
             board[monster['X']][monster['Y']] = ' '
