@@ -26,14 +26,16 @@ def create_player():
 
 
 def main():
+
     player = create_player()
     player_stats = choose_class()
     #printLore
-   	board = engine.create_board()
+    board = engine.create_board()
 
     util.clear_screen()
-
-    engine.put_player_on_board(board, player)
+    for i in range(3):
+        board = engine.create_board()
+        engine.put_player_on_board(board, player)
 
     ui.display_board(board)
     util.clear_screen()
