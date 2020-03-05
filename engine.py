@@ -2,7 +2,7 @@ import map as gmap
 import util
 import numpy as np
 import time
-
+import enemy
 
 def create_board():
     '''
@@ -103,7 +103,7 @@ def move_down(board, previous_spot, height, width, player_position):
             previous_spot = board[height][width]
 
 
-def put_player_on_board(board, player):
+def put_player_on_board(board, player, monsters_alive, monster_dict, valid_place):
     place_player(board, player)
     previous_spot = ' '
     while True:
@@ -117,12 +117,16 @@ def put_player_on_board(board, player):
 
         if key == 'd':
             move_right(board, previous_spot, height, width, player_position)
+            enemy.monster_movement(board,monsters_alive,valid_place)
         elif key == 'a':
             move_left(board, previous_spot, height, width, player_position)
+            enemy.monster_movement(board, monsters_alive, valid_place)
         elif key == 'w':
             move_up(board, previous_spot, height, width, player_position)
+            enemy.monster_movement(board, monsters_alive, valid_place)
         elif key == 's':
             move_down(board, previous_spot, height, width, player_position)
+            enemy.monster_movement(board, monsters_alive, valid_place)
         elif key == 'q':
             break
 
