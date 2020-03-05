@@ -13,6 +13,7 @@ def create_player():
 
 
 def main():
+
     player = create_player()
 
     util.clear_screen()
