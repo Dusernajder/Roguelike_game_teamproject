@@ -1,6 +1,8 @@
 import map as gmap
 import util
 import numpy as np
+import time
+
 
 def create_board():
     '''
@@ -29,10 +31,14 @@ def print_board(board):
     print()
 
 
+# def move_right(board, previous_spot,height,width):
+
+
 def put_player_on_board(board, player):
     place_player(board)
     previous_spot = ' '
     while True:
+        time.sleep(0.05)
         print_board(board)
 
         key = util.key_pressed()
@@ -41,34 +47,57 @@ def put_player_on_board(board, player):
         height = player_position[0]
         width = player_position[1]
         if key == 'd':
-            if player_position[1] != len(board)-1:
-                board[height][width] = previous_spot
-                player_position[1] += 1
-                height = player_position[0]
-                width = player_position[1]
-                previous_spot = board[height][width]
-        elif key == 'a':
-            if player_position[1] != 0:
-                board[height][width] = previous_spot
-                player_position[1] -= 1
-                height = player_position[0]
-                width = player_position[1]
-                previous_spot = board[height][width]
-        elif key == 'w':
-            if player_position[0] != 0:
-                board[height][width] = previous_spot
-                player_position[0] -= 1
-                height = player_position[0]
-                width = player_position[1]
-                previous_spot = board[height][width]
-        elif key == 's':
-            if player_position[0] != len(board[0])-1:
+            if player_position[1] != len(board)-1 and board[height][width] != 'X':
+                test_player_position = player_position[:]
+                test_player_position[1] += 1
+                test_height = test_player_position[0]
+                test_width = test_player_position[1]
 
-                board[height][width] = previous_spot
-                player_position[0] += 1
-                height = player_position[0]
-                width = player_position[1]
-                previous_spot = board[height][width]
+                if board[test_height][test_width] != 'X':
+                    board[height][width] = previous_spot
+                    player_position[1] += 1
+                    height = player_position[0]
+                    width = player_position[1]
+                    previous_spot = board[height][width]
+        elif key == 'a':
+            if player_position[1] != 0 and board[height][width] != 'X':
+                test_player_position = player_position[:]
+                test_player_position[1] -= 1
+                test_height = test_player_position[0]
+                test_width = test_player_position[1]
+
+                if board[test_height][test_width] != 'X':
+                    board[height][width] = previous_spot
+                    player_position[1] -= 1
+                    height = player_position[0]
+                    width = player_position[1]
+                    previous_spot = board[height][width]
+        elif key == 'w':
+            if player_position[0] != 0 and board[height][width] != 'X':
+                test_player_position = player_position[:]
+                test_player_position[0] -= 1
+                test_height = test_player_position[0]
+                test_width = test_player_position[1]
+
+                if board[test_height][test_width] != 'X':
+                    board[height][width] = previous_spot
+                    player_position[0] -= 1
+                    height = player_position[0]
+                    width = player_position[1]
+                    previous_spot = board[height][width]
+        elif key == 's':
+            if player_position[0] != len(board[0])-1 and board[height][width] != 'X':
+                test_player_position = player_position[:]
+                test_player_position[0] += 1
+                test_height = test_player_position[0]
+                test_width = test_player_position[1]
+
+                if board[test_height][test_width] != 'X':
+                    board[height][width] = previous_spot
+                    player_position[0] += 1
+                    height = player_position[0]
+                    width = player_position[1]
+                    previous_spot = board[height][width]
         elif key == 'q':
             break
 
