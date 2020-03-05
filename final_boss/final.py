@@ -1,14 +1,15 @@
 from time import sleep
+from util import read_table_from_file
 import os
 
 
-def import_final_chars(file_name):
-    try:
-        with open(file_name, "r") as file:
-            lines = file.readlines()
-        return [element.replace("\n", "").split('\n') for element in lines]
-    except IOError:
-        pass
+# def import_final_chars(file_name):
+#     try:
+#         with open(file_name, "r") as file:
+#             lines = file.readlines()
+#         return [element.replace("\n", "").split('\n') for element in lines]
+#     except IOError:
+#         pass
 
 
 def start_position(boss, movement_type_one, move, warrior_distance, boss_text):
@@ -62,13 +63,13 @@ def final_choreography():
     charachters = {}
     get_ch = charachters.get
 
-    charachters['boss'] = import_final_chars('boss.txt')
-    charachters['movement_type_one'] = import_final_chars('fight_one.txt')
-    charachters['movement_type_two'] = import_final_chars('fight_two.txt')
-    charachters['movement_type_three'] = import_final_chars('fight_three.txt')
-    charachters['movement_type_four'] = import_final_chars('fight_four.txt')
-    charachters['boss_text'] = import_final_chars('youshallnotpass.txt')
-    charachters['execute'] = import_final_chars('execute.txt')
+    charachters['boss'] = read_table_from_file('boss.txt', '\n')
+    charachters['movement_type_one'] = read_table_from_file('fight_one.txt', '\n')
+    charachters['movement_type_two'] = read_table_from_file('fight_two.txt', '\n')
+    charachters['movement_type_three'] = read_table_from_file('fight_three.txt', '\n')
+    charachters['movement_type_four'] = read_table_from_file('fight_four.txt', '\n')
+    charachters['boss_text'] = read_table_from_file('youshallnotpass.txt', '\n')
+    charachters['execute'] = read_table_from_file('execute.txt', '\n')
 
     warrior_distance = start_position(get_ch('boss'), get_ch('movement_type_one'), move, warrior_distance, get_ch('boss_text'))
     warrior_distance = move_R_L(get_ch('boss'), get_ch('movement_type_two'), fast_move, warrior_distance, 'L')
