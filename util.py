@@ -1,6 +1,7 @@
 import sys
 import os
-
+import string
+from random import shuffle, sample
 
 def key_pressed():
     try:
@@ -32,6 +33,7 @@ def clear_screen():
     else:
         os.system('clear')
 
+
 def read_table_from_file(file_name, separator=';'):
     """Read CSV file into a data table.
 
@@ -62,3 +64,19 @@ def write_table_to_file(file_name, table, separator=';'):
         for record in table:
             row = separator.join(record)
             file.write(row + "\n")
+
+
+def make_dict(data, headers):
+    return [{headers[i]: stat for i, stat in enumerate(line)} for line in data]
+
+
+def generate_id():
+    small_letters = [chr(x) for x in range(97, 123)]
+    capital_letters = [chr(x) for x in range(65, 91)]
+    numbers = [chr(x) for x in range(48, 58)]
+    spec_chars = ['_', '-', '+', '!']
+    while True:
+        new_id = sum([sample(small_letters, 4), sample(capital_letters, 2), sample(numbers, 2), sample(spec_chars, 2)],
+                     [])
+        shuffle(new_id)
+        return ''.join(new_id)
