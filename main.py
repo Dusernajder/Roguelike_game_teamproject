@@ -1,6 +1,7 @@
 import util
 import engine
 import ui
+from final import  final_choreography
 
 PLAYER_ICON = u"\u263B"
 PLAYER_START_X = 3
@@ -21,6 +22,7 @@ def main():
 
     ui.display_board(board)
     util.clear_screen()
+    final_choreography()
 
 
 if __name__ == '__main__':
