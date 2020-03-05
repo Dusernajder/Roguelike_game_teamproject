@@ -13,6 +13,7 @@ def create_player():
 
 
 def main():
+
     player = create_player()
     board = engine.create_board()
 
