@@ -1,6 +1,5 @@
 import sys
 import os
-import string
 from random import shuffle, sample
 
 def key_pressed():
