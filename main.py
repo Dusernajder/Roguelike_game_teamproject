@@ -6,9 +6,6 @@ PLAYER_ICON = u"\u263B"
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
 
-BOARD_WIDTH = 30
-BOARD_HEIGHT = 20
-
 
 def create_player():
     return PLAYER_ICON
