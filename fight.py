@@ -74,4 +74,4 @@ def fight(player_stats, enemy):
 	return player_stats
 
 
-fight({'Name': 'Warrior', 'Hp': 20, 'Attack': 15, 'Defense': 15, 'Agility': 5, 'Level': 1},{'Name': 'Orc', 'Hp': 20, 'Attack': 6, 'Defense': 10, 'Agility': 5, 'Level': 1})
+# fight({'Name': 'Warrior', 'Hp': 20, 'Attack': 15, 'Defense': 15, 'Agility': 5, 'Level': 1},{'Name': 'Orc', 'Hp': 20, 'Attack': 6, 'Defense': 10, 'Agility': 5, 'Level': 1})
