@@ -1,4 +1,8 @@
 None;Orc;O;15;10;10;10;1;None;None
+None;Golbin;G;15;8;9;12;1;None;None
 None;Troll;T;18;13;12;7;2;None;None
-None;Orc Mage;OM;8;18;7;12;3;None;None
-None;Gyuluska;GY;20;20;3;4;4;None;None
+None;Orc Rider;R;19;12;8;10;2;None;None
+None;Witch;W;8;15;18;10;3;None;None
+None;Orc Mage;M;8;18;7;12;3;None;None
+None;Bela Ur;B;20;20;3;4;4;None;None
+None;Kaller;K;10;28;3;4;20;None;None
