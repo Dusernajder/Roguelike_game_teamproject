@@ -96,6 +96,7 @@ def put_player_on_board(board, player):
     previous_spot = ' '
     while True:
         time.sleep(0.05)
+        util.clear_screen()
         print_board(board)
         key = util.key_pressed()
         player_position = [np.where(board == player)[0][0], np.where(board == player)[1][0]]
