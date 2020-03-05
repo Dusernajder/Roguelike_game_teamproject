@@ -1,4 +1,12 @@
 
+# def get_lore_entry(player_class):
+	
+
+
+# def print_lore(player_class):
+	
+
+
 def join_tables(table_one, table_two):
 	max_len = max([len(table_one), len(table_two)])
 	full_table = [f'{table_one[i]}  {table_two[i]}' for i in range(max_len)]

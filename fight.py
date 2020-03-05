@@ -1,5 +1,6 @@
 from random import randint
 import printing
+import util
 
 
 def not_dead(player, enemy):
@@ -35,8 +36,8 @@ def get_message(damage, attacker, defender):
 		
 
 
-def figth(player_stats):
-	enemy = {'Name': 'Orc', 'Hp': 15, 'Attack': 10, 'Defense': 10, 'Agility': 10, 'Level': 1}
+def fight(player_stats, enemy):
+	util.clear_screen()
 	printing.print_fight_board(player_stats, enemy)
 	message = None
 	turn = 1
@@ -53,41 +54,8 @@ def figth(player_stats):
 			message = get_message(damage, enemy, player_stats)
 			if damage > 0:
 				player_stats['Hp'] -= damage
+		util.clear_screen()
 		printing.print_fight_board(player_stats, enemy, mssg=message)
 		turn += 1
 	return player_stats
 
-
-
-
-
-
-# def choose_class():
-# 	for i, x in enumerate(['Warrior', 'Mage', 'Thief']):
-# 		print(f'{i} {x}')
-# 	choice = input('Choose class:')
-# 	if choice == '0':
-# 		return {'Name': 'Warrior', 'Hp': 20, 'Attack': 10, 'Defense': 15, 'Agility': 5, 'Level': 1}
-# 	elif choice == '1':
-# 		return {'Name': 'Mage', 'Hp': 15, 'Attack': 15, 'Defense': 5, 'Agility': 10, 'Level': 1}
-# 	elif choice == '2':
-# 		return {'Name': 'Thief', 'Hp': 10, 'Attack': 15, 'Defense': 5, 'Agility': 20, 'Level': 1}
-
-
-# def main():
-# 	player_class = choose_class()
-# 	player_class = figth(player_class)
-# 	if player_class['Hp'] <= 0:
-# 		print('GameOver')
-# 	else:
-# 		print('Win')
-
-
-
-# if __name__ == '__main__':
-# 	main()
-
-
-# printing.print_fight_board(attacker, defender, mssg=f'{name} Dodged!') 
-# printing.print_fight_board(attacker, defender, mssg=f'{name} cause {damage} points of damage!')
-# printing.print_fight_board(attacker, defender, mssg=f'{name} Blocked!')
