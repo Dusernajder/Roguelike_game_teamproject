@@ -2,7 +2,7 @@ import util
 import engine
 import ui
 
-PLAYER_ICON = '@'
+PLAYER_ICON = u"\u263B"
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
 

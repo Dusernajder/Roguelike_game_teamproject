@@ -3,6 +3,7 @@ import util
 import numpy as np
 import time
 
+
 def create_board():
     '''
     Creates a new game board based on input parameters.
@@ -13,11 +14,11 @@ def create_board():
     return gmap.get_random_map()
 
 
-def place_player(board):
+def place_player(board, player):
     for row_index, row in enumerate(board):
         for cell_index, cell in enumerate(row):
-            if board[row_index][cell_index]==' ':
-                board[row_index][cell_index]='@'
+            if board[row_index][cell_index] == ' ':
+                board[row_index][cell_index] = player
                 break
             break
 
@@ -91,7 +92,7 @@ def move_down(board, previous_spot, height, width, player_position):
 
 
 def put_player_on_board(board, player):
-    place_player(board)
+    place_player(board, player)
     previous_spot = ' '
     while True:
         time.sleep(0.05)
@@ -118,6 +119,3 @@ def put_player_on_board(board, player):
 
     return board
 
-
-
-# put_player_on_board(create_board(), '@')
