@@ -59,6 +59,7 @@ def insert_doors(matrix):
 
     return matrix
 
+
 def generate_door(matrix):
     door_in = []
     door_out = []
@@ -90,15 +91,6 @@ def generate_door(matrix):
     return door_in, door_out
 
 
-def place_treasure(matrix):
-
-
-    pass
-
-
-
 def get_random_map():
     new_map = np.ones((shape), dtype = str)
-    m = generate_map(generate_random_map(new_map), shape)
-
-    return m
+    return generate_map(generate_random_map(new_map), shape)
