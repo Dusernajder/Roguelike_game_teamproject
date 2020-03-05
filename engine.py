@@ -23,6 +23,18 @@ def place_player(board, player):
             break
 
 
+def find_last_gate(board):
+    last_column = 49
+    for i in range(last_column):
+        if board[i][49] == " ":
+            return i
+
+
+def next_map(board, player):
+    if board[find_last_gate(board)][len(board)-1] == player:
+        return True
+
+
 def print_board(board):
     for row in board:
         for cell in row:
@@ -113,6 +125,13 @@ def put_player_on_board(board, player):
             move_down(board, previous_spot, height, width, player_position)
         elif key == 'q':
             break
+
+        try:
+            if next_map(board, player):
+                break
+        except:
+            break
+
 
         height = player_position[0]
         width = player_position[1]
