@@ -1,5 +1,4 @@
 import util
-import engine
 import random
 
 test_board = [['X', 'X', 'X', 'X', 'X'], ['1', '1', '1', '1', '1'], ['X', 'X', 'X', 'X', 'X'],
@@ -16,20 +15,18 @@ monsters_dict = util.make_dict(monster, monster_headers)
 hero_dict = util.make_dict(hero, hero_headers)
 
 
-
 def max_monster_on_map(floorsize):
     return int(len(floorsize) * 0.2)
 
 
 def pick_valid_places(board):
-    global valid_place
-    for i in range(30):
-        for j in range(30):
+    valid_place = []
+    for i in range(5):
+        for j in range(5):
             if board[i][j] == '1':
                 valid_place.append((i, j))
     return valid_place
 
-valid_place = pick_valid_places(test_board)
 
 def pick_monster(monsters, player, monster_number_count):
     picked_monsters = []
@@ -44,15 +41,14 @@ def pick_monster(monsters, player, monster_number_count):
     return picked_monsters
 
 
-def monster_placement(monsters, board, monsters_alive):
-    global valid_place
+def monster_placement(validplace, monsters, board, monsters_alive):
     monster_left_to_place = monsters
     for monster in monster_left_to_place:
         monster['ID'] = util.generate_id()
     used = []
     for i in monster_left_to_place:
         if i not in used:
-            place = random.choice(valid_place)
+            place = random.choice(validplace)
             i['X'], i['Y'] = place[0], place[1]
             board[place[0]][place[1]] = i['Icon']
             monsters_alive.append(i['ID'])
@@ -60,9 +56,9 @@ def monster_placement(monsters, board, monsters_alive):
 
 
 
-def monster_movement(board, monsters_alive, monster_dict):
+def monster_movement(board, monsters_alive, monster_dict,valid_place):
     can_move = []
-    global valid_place
+
     current_monster = None
     for monster_id in range(len(monsters_alive)):
         for monster in monster_dict:
@@ -87,14 +83,14 @@ def monster_movement(board, monsters_alive, monster_dict):
 def main():
     monsters_alive = []
     board = test_board
-
+    monsters_alive = []
+    floorsize = pick_valid_places(board)
+    max_monsters = max_monster_on_map(floorsize)
+    enemys = pick_monster(monsters_dict, hero_dict, max_monsters)
+    monster_placement(floorsize, enemys, board, monsters_alive)
     print(board)
-    #monsters_alive = []
-    #max_monsters = max_monster_on_map(valid_place)
-    #enemys = pick_monster(monsters_dict, hero_dict, 8)
-    #monster_placement(enemys, board, monsters_alive)
-    #monster_movement(board,monsters_alive, monsters_dict)
-
+    monster_movement(board,monsters_alive, monsters_dict,floorsize)
+    print(board)
 
 
 if __name__ == '__main__':
