@@ -31,7 +31,64 @@ def print_board(board):
     print()
 
 
-# def move_right(board, previous_spot,height,width):
+def move_right(board, previous_spot, height, width, player_position):
+    if player_position[1] != len(board) - 1 and board[height][width] != 'X':
+        test_player_position = player_position[:]
+        test_player_position[1] += 1
+        test_height = test_player_position[0]
+        test_width = test_player_position[1]
+
+        if board[test_height][test_width] != 'X':
+            board[height][width] = previous_spot
+            player_position[1] += 1
+            height = player_position[0]
+            width = player_position[1]
+            previous_spot = board[height][width]
+
+
+def move_left(board, previous_spot, height, width, player_position):
+    if player_position[1] != 0 and board[height][width] != 'X':
+        test_player_position = player_position[:]
+        test_player_position[1] -= 1
+        test_height = test_player_position[0]
+        test_width = test_player_position[1]
+
+        if board[test_height][test_width] != 'X':
+            board[height][width] = previous_spot
+            player_position[1] -= 1
+            height = player_position[0]
+            width = player_position[1]
+            previous_spot = board[height][width]
+
+
+def move_up(board, previous_spot, height, width, player_position):
+    if player_position[0] != 0 and board[height][width] != 'X':
+        test_player_position = player_position[:]
+        test_player_position[0] -= 1
+        test_height = test_player_position[0]
+        test_width = test_player_position[1]
+
+        if board[test_height][test_width] != 'X':
+            board[height][width] = previous_spot
+            player_position[0] -= 1
+            height = player_position[0]
+            width = player_position[1]
+            previous_spot = board[height][width]
+
+
+def move_down(board, previous_spot, height, width, player_position):
+    if player_position[0] != len(board[0]) - 1 and board[height][width] != 'X':
+        test_player_position = player_position[:]
+        test_player_position[0] += 1
+        test_height = test_player_position[0]
+        test_width = test_player_position[1]
+
+        if board[test_height][test_width] != 'X':
+            board[height][width] = previous_spot
+            player_position[0] += 1
+            height = player_position[0]
+            width = player_position[1]
+            previous_spot = board[height][width]
 
 
 def put_player_on_board(board, player):
@@ -40,64 +97,19 @@ def put_player_on_board(board, player):
     while True:
         time.sleep(0.05)
         print_board(board)
-
         key = util.key_pressed()
         player_position = [np.where(board == '@')[0][0], np.where(board == '@')[1][0]]
-
         height = player_position[0]
         width = player_position[1]
+        
         if key == 'd':
-            if player_position[1] != len(board)-1 and board[height][width] != 'X':
-                test_player_position = player_position[:]
-                test_player_position[1] += 1
-                test_height = test_player_position[0]
-                test_width = test_player_position[1]
-
-                if board[test_height][test_width] != 'X':
-                    board[height][width] = previous_spot
-                    player_position[1] += 1
-                    height = player_position[0]
-                    width = player_position[1]
-                    previous_spot = board[height][width]
+            move_right(board, previous_spot, height, width, player_position)
         elif key == 'a':
-            if player_position[1] != 0 and board[height][width] != 'X':
-                test_player_position = player_position[:]
-                test_player_position[1] -= 1
-                test_height = test_player_position[0]
-                test_width = test_player_position[1]
-
-                if board[test_height][test_width] != 'X':
-                    board[height][width] = previous_spot
-                    player_position[1] -= 1
-                    height = player_position[0]
-                    width = player_position[1]
-                    previous_spot = board[height][width]
+            move_left(board, previous_spot, height, width, player_position)
         elif key == 'w':
-            if player_position[0] != 0 and board[height][width] != 'X':
-                test_player_position = player_position[:]
-                test_player_position[0] -= 1
-                test_height = test_player_position[0]
-                test_width = test_player_position[1]
-
-                if board[test_height][test_width] != 'X':
-                    board[height][width] = previous_spot
-                    player_position[0] -= 1
-                    height = player_position[0]
-                    width = player_position[1]
-                    previous_spot = board[height][width]
+            move_up(board, previous_spot, height, width, player_position)
         elif key == 's':
-            if player_position[0] != len(board[0])-1 and board[height][width] != 'X':
-                test_player_position = player_position[:]
-                test_player_position[0] += 1
-                test_height = test_player_position[0]
-                test_width = test_player_position[1]
-
-                if board[test_height][test_width] != 'X':
-                    board[height][width] = previous_spot
-                    player_position[0] += 1
-                    height = player_position[0]
-                    width = player_position[1]
-                    previous_spot = board[height][width]
+            move_down(board, previous_spot, height, width, player_position)
         elif key == 'q':
             break
 
