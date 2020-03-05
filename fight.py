@@ -1,5 +1,6 @@
 from random import randint
 import printing
+import util
 
 
 def not_dead(player, enemy):
@@ -18,10 +19,15 @@ def calculate_damage(attack, defense, agility):
 	return attack - defense
 
 
-def _turn_(attacker, defender):
+def _turn_(attacker, defender, dice_number, player, enemy):
+	att_name = attacker['Name']
+	def_name = defender['Name']
+	send_message(f'{att_name} throw with {dice_number} dice!', player, enemy)
 	attack = throw_six_sided_dice(2)
+	send_message(f'{att_name} throw {attack}!', player, enemy)
+	send_message(f'{def_name} throw with {dice_number} dice!', player, enemy)
 	defense = throw_six_sided_dice(2)
-	mssg = 'None'
+	send_message(f'{def_name} throw {defense}!', player, enemy)
 	return calculate_damage(attacker['Attack']+attack, defender['Defense']+defense, defender['Agility'])
 
 
@@ -34,60 +40,38 @@ def get_message(damage, attacker, defender):
 		return f'{name} caused {damage} point(s) of damage!'
 		
 
+def send_message(message, player, enemy):
+	util.clear_screen()
+	printing.print_fight_board(player=player, enemy=enemy, mssg=message)
+	input('Press Enter!')
 
-def figth(player_stats):
-	enemy = {'Name': 'Orc', 'Hp': 15, 'Attack': 10, 'Defense': 10, 'Agility': 10, 'Level': 1}
+
+def fight(player_stats, enemy):
+	dice_number = 2
+	player_name = player_stats['Name']
+	enemy_name = enemy['Name']
+	util.clear_screen()
 	printing.print_fight_board(player_stats, enemy)
 	message = None
 	turn = 1
 	while not_dead(player_stats, enemy):
-		attack = throw_six_sided_dice(2)
-		defense = throw_six_sided_dice(2)
 		if turn % 2 != 0:
-			damage = _turn_(player_stats, enemy)
+			damage = _turn_(player_stats, enemy, dice_number, player=player_stats, enemy=enemy)
 			message = get_message(damage, player_stats, enemy)
 			if damage > 0:
 				enemy['Hp'] -= damage
 		else:
-			damage = _turn_(enemy, player_stats)
+			damage = _turn_(enemy, player_stats, dice_number, player=player_stats, enemy=enemy)
 			message = get_message(damage, enemy, player_stats)
 			if damage > 0:
 				player_stats['Hp'] -= damage
-		printing.print_fight_board(player_stats, enemy, mssg=message)
+		send_message(message, player_stats, enemy)
 		turn += 1
+	if player_stats['Hp'] < 0:
+		send_message(f'{player_name} Died!', player=player_stats, enemy=enemy)
+	else:
+		send_message(f'{enemy_name} Died!', player=player_stats, enemy=enemy)
 	return player_stats
 
 
-
-
-
-
-# def choose_class():
-# 	for i, x in enumerate(['Warrior', 'Mage', 'Thief']):
-# 		print(f'{i} {x}')
-# 	choice = input('Choose class:')
-# 	if choice == '0':
-# 		return {'Name': 'Warrior', 'Hp': 20, 'Attack': 10, 'Defense': 15, 'Agility': 5, 'Level': 1}
-# 	elif choice == '1':
-# 		return {'Name': 'Mage', 'Hp': 15, 'Attack': 15, 'Defense': 5, 'Agility': 10, 'Level': 1}
-# 	elif choice == '2':
-# 		return {'Name': 'Thief', 'Hp': 10, 'Attack': 15, 'Defense': 5, 'Agility': 20, 'Level': 1}
-
-
-# def main():
-# 	player_class = choose_class()
-# 	player_class = figth(player_class)
-# 	if player_class['Hp'] <= 0:
-# 		print('GameOver')
-# 	else:
-# 		print('Win')
-
-
-
-# if __name__ == '__main__':
-# 	main()
-
-
-# printing.print_fight_board(attacker, defender, mssg=f'{name} Dodged!') 
-# printing.print_fight_board(attacker, defender, mssg=f'{name} cause {damage} points of damage!')
-# printing.print_fight_board(attacker, defender, mssg=f'{name} Blocked!')
+# fight({'Name': 'Warrior', 'Hp': 20, 'Attack': 15, 'Defense': 15, 'Agility': 5, 'Level': 1},{'Name': 'Orc', 'Hp': 20, 'Attack': 6, 'Defense': 10, 'Agility': 5, 'Level': 1})
