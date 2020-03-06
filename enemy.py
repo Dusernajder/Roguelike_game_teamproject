@@ -2,29 +2,24 @@ import util
 import random
 import numpy as np
 import engine
-
-test_board = [['1', '1', '1', '1', '1'], ['1', '1', '1', '1', '1'], ['1', '1', '1', '1', 'X'],
-              ['1', '1', '1', '1', '1'], ['1', '1', '1', '1', '1']]
-
-
-freespace = ' '
-walls = 'X'
+import main
+import time
 
 hero = util.read_table_from_file('hero.csv', ';')
 monster = util.read_table_from_file('enemy.csv', ';')
 
-monster_headers = ['ID','Name', 'Icon', 'HP', 'Attack', 'Deffense', 'Agility', 'Level','X','Y']
+monster_headers = ['ID', 'Name', 'Icon', 'HP', 'Attack', 'Deffense', 'Agility', 'Level', 'X', 'Y']
 hero_headers = ['Name', 'Icon', 'HP', 'Attack', 'Deffense', 'Agility', 'Level']
 
 monsters_dict = util.make_dict(monster, monster_headers)
 hero_dict = util.make_dict(hero, hero_headers)
 
 
-def max_monster_on_map(floorsize):#chose the maximum number of monster on the given map
+def max_monster_on_map(floorsize):  # chose the maximum number of monster on the given map
     return int(len(floorsize) * 0.2)
 
 
-def pick_valid_places(board):#check valid places to place or move
+def pick_valid_places(board):  # check valid places to place or move
     valid_place = []
     for i in range(50):
         for j in range(50):
@@ -33,7 +28,8 @@ def pick_valid_places(board):#check valid places to place or move
     return valid_place
 
 
-def pick_monster(monsters, player, monster_number_count):#pick monsters from the monsters dictionary for the player level
+def pick_monster(monsters, player,
+                 monster_number_count):  # pick monsters from the monsters dictionary for the player level
     picked_monsters = []
     monsters_list = []
     for monster in monsters:
@@ -46,7 +42,7 @@ def pick_monster(monsters, player, monster_number_count):#pick monsters from the
     return picked_monsters
 
 
-def monster_placement(validplace, monsters, board, monsters_alive):# place the chosen monsters
+def monster_placement(validplace, monsters, board, monsters_alive):  # place the chosen monsters
     monster_left_to_place = monsters
     used = []
     for monster in monster_left_to_place:
@@ -56,48 +52,42 @@ def monster_placement(validplace, monsters, board, monsters_alive):# place the c
         if monster_dict not in used:
             place = random.choice(validplace)
             monster_dict['X'], monster_dict['Y'] = place[0], place[1]
+
             board[place[0]][place[1]] = monster_dict['Icon']
+
             monsters_alive.append(monster_dict)
             used.append(monster_dict)
 
 
+def monster_movement(board, monsters_alive, valid_place):  # when you call it it moves all the 'living' monsters
+    for monster in monsters_alive:
+        possible_moves = []
+
+        append = possible_moves.append
+        append((monster['X'] + 1, monster['Y'])), append((monster['X'] - 1, monster['Y']))
+        append((monster['X'], monster['Y'] + 1)), append((monster['X'], monster['Y'] - 1))
+
+        can_move = [x for x in possible_moves if x in valid_place]
+
+        move = random.choice(can_move)
+
+        board[monster['X']][monster['Y']] = ' '
+        monster['X'], monster['Y'] = move[0], move[1]
+        board[int(monster['X'])][int(monster['Y'])] = monster['Icon']
 
 
-def monster_movement(board, monsters_alive,valid_place):# when you call it it moves all the 'living' monsters
-        for monster in monsters_alive:
-            possible_moves = []
-            append = possible_moves.append
-            append((monster['X'] + 1,monster['Y'])), append((monster['X'] - 1,monster['Y']))
-            append((monster['X'], monster['Y'] + 1)), append((monster['X'], monster['Y'] - 1))
-            can_move = [x for x in possible_moves if x in valid_place]
-            move = random.choice(can_move)
-            board[monster['X']][monster['Y']] = ' '
-            monster['X'],monster['Y'] = move[0],move[1]
-            board[int(monster['X'])][int(monster['Y'])] = monster['Icon']
+def trigger_fight(player, board, monsters_alive):
+    player = main.create_player()
+    current_monster = None
+    for monster in monsters_alive:
+        current_monster = monster
+        for x in board:
+            for y in x:
+                if board[x][y] == player and monster['X'],monster['Y']:
+
+        if monster[] == player:
+            print('KEKEKEKEKEKEKEKEKEKEKEKEKEKEKEKEKE')
+            time.sleep(2)
 
 
 
-
-
-
-
-def main():
-    board = test_board
-    monsters_alive = [] #store the still alive monster ids
-    floorsize = pick_valid_places(board)
-    max_monsters = max_monster_on_map(floorsize)
-    enemys = pick_monster(monsters_dict, hero_dict, 1)
-    monster_placement(floorsize, enemys, board, monsters_alive)
-    for i in board:
-        print(i)
-    print('----------------------------------------------')
-    monster_movement(board,monsters_alive,floorsize)
-    for i in board:
-        print(i)
-    print('--------------------------------------------')
-    monster_movement(board, monsters_alive, floorsize)
-    for i in board:
-        print(i)
-
-if __name__ == '__main__':
-    main()
