@@ -3,6 +3,7 @@ import util
 import numpy as np
 import time
 import enemy
+import fight
 
 def create_board():
     '''
@@ -103,7 +104,7 @@ def move_down(board, previous_spot, height, width, player_position):
             previous_spot = board[height][width]
 
 
-def put_player_on_board(board, player, monsters_alive, monster_dict, valid_place):
+def put_player_on_board(board, player, monsters_alive, monster_dict, valid_place, player_dict):
     place_player(board, player)
     previous_spot = ' '
     while True:
@@ -111,7 +112,9 @@ def put_player_on_board(board, player, monsters_alive, monster_dict, valid_place
         util.clear_screen()
         print_board(board)
         key = util.key_pressed()
+
         player_position = [np.where(board == player)[0][0], np.where(board == player)[1][0]]
+        original_position = player_position[:]
         height = player_position[0]
         width = player_position[1]
 
@@ -141,5 +144,10 @@ def put_player_on_board(board, player, monsters_alive, monster_dict, valid_place
         width = player_position[1]
         board[height][width] = player
 
-    return board
+        monster_coords = [[mob['X'], mob['Y']-2] for mob in monsters_alive]
+        for coords in monster_coords:
+            if [original_position[0]+1, original_position[1]] == coords or [original_position[0], original_position[1]-1] == coords:
+                fight.fight(player_dict, {'Name': 'Orc', 'Hp': 20, 'Attack': 6, 'Defense': 5, 'Agility': 5, 'Level': 1})
 
+
+    return player_position

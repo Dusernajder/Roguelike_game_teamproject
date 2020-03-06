@@ -40,10 +40,14 @@ def choose_class():
 	sleep(1)
 	for i, bag in enumerate(bags):
 		print(f'{i} {bag[0]} and {bag[1]}')
-	sleep(1)
 	choice = input('You choose: ')
 	system('clear')
-	return get_class(choice)
+	player_class = get_class(choice)
+	if player_class is None:
+		return {'Name': 'Dummy', 'Hp': 20, 'Attack': 10, 'Defense': 15, 'Agility': 5, 'Level': 1}
+	else:
+		return player_class
+
 
 def start_lore():
 	system('clear')
