@@ -76,18 +76,7 @@ def monster_movement(board, monsters_alive, valid_place):  # when you call it it
         board[int(monster['X'])][int(monster['Y'])] = monster['Icon']
 
 
-def trigger_fight(player, board, monsters_alive):
-    player = main.create_player()
-    current_monster = None
-    for monster in monsters_alive:
-        current_monster = monster
-        for x in board:
-            for y in x:
-                if board[x][y] == player and monster['X'],monster['Y']:
 
-        if monster[] == player:
-            print('KEKEKEKEKEKEKEKEKEKEKEKEKEKEKEKEKE')
-            time.sleep(2)
 
 
 
